@@ -6,12 +6,12 @@ class StudentsController < ApplicationController
   end
 
   def show
-    # @student = set_student
-    # if @student.active
-    #   @active_status = "This student is currently active."
-    # else
-    #   @active_status = "This student is currently inactive."
-    # end
+    @student = set_student
+    if @student.active
+      @active_status = "This student is currently active."
+    else
+      @active_status = "This student is currently inactive."
+    end
   end
   
   def activate
@@ -22,8 +22,9 @@ class StudentsController < ApplicationController
     else
       @student.active = true
     end
-    @student.save!
-    redirect_to student_path(@student.id)
+    @student.save
+
+    redirect_to student_path(@student)
   end
 
   private
