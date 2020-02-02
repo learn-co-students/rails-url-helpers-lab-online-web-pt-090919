@@ -5,7 +5,26 @@ class StudentsController < ApplicationController
     @students = Student.all
   end
 
-  def show
+    def show
+    @student = set_student
+      if @student.active
+        @active_status = "This student is currently active."
+      else
+        @active_status = "This student is currently inactive."
+      end
+  end
+  
+  def activate
+    @student = set_student
+
+      if @student.active
+        @student.active = false
+      else
+        @student.active = true
+      end
+      @student.save!    
+      
+      redirect_to student_path(@student.id)
   end
 
   private
@@ -13,4 +32,5 @@ class StudentsController < ApplicationController
     def set_student
       @student = Student.find(params[:id])
     end
+    
 end
